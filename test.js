@@ -26,6 +26,32 @@ export const adminPaths = [
   },
 ];
 
+const getRoutes = (paths) => {
+  const routes = paths.reduce((acc, item) => {
+    if (item.path && item.element) {
+      acc.push({
+        path: item.path,
+        element: item.element,
+      });
+    }
+
+    if (item.children) {
+      item.children.forEach((child) =>
+        acc.push({
+          path: child.path,
+          element: child.element,
+        })
+      );
+    }
+    return acc;
+  }, []);
+  return routes;
+};
+
+const adminRoutes = getRoutes(adminPaths);
+
+console.log(adminRoutes);
+
 // const adminDashboardItems = adminPaths.reduce((acc, item) => {
 //   if (item.name && item.path) {
 //     acc.push({
